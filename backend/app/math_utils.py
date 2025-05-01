@@ -1,13 +1,13 @@
 import numpy as np
-from sympy import sympify, lambdify, symbols
+from sympy import sympify, lambdify
+from .constants import x, DEFAULT_NUM_POINTS, ERROR_INVALID_EQUATION, ERROR_EVALUATION_FAILED
 
-def compute_curve_points(equation_str: str, x_min: float, x_max: float, num_points: int = 1000) -> list[tuple[float, float]]:
-    x = symbols('x')
+def compute_curve_points(equation_str: str, x_min: float, x_max: float, num_points: int = DEFAULT_NUM_POINTS) -> list[tuple[float, float]]:
     
     try:
         expr = sympify(equation_str)
     except Exception as e:
-        raise ValueError(f"Invalid equation: {e}")
+        raise ValueError(ERROR_INVALID_EQUATION.format(e))
 
     # Convert sympy expression into a function usable with numpy arrays
     f = lambdify(x, expr, modules=['numpy'])
@@ -17,7 +17,7 @@ def compute_curve_points(equation_str: str, x_min: float, x_max: float, num_poin
     try:
         y_vals = f(x_vals)
     except Exception as e:
-        raise ValueError(f"Error evaluating function: {e}")
+        raise ValueError(ERROR_EVALUATION_FAILED.format(e))
 
     if np.isscalar(y_vals):
         y_vals = np.full_like(x_vals, fill_value=y_vals, dtype=float)
