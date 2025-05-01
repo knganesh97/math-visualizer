@@ -1,13 +1,14 @@
 import numpy as np
 from sympy import sympify, lambdify
-from .constants import x, DEFAULT_NUM_POINTS, ERROR_INVALID_EQUATION, ERROR_EVALUATION_FAILED
+from .constants import x, DEFAULT_NUM_POINTS, ERROR_EVALUATION_FAILED
 
 def compute_curve_points(equation_str: str, x_min: float, x_max: float, num_points: int = DEFAULT_NUM_POINTS) -> list[tuple[float, float]]:
-    
-    try:
-        expr = sympify(equation_str)
-    except Exception as e:
-        raise ValueError(ERROR_INVALID_EQUATION.format(e))
+    """
+    Compute (x, y) points for a given mathematical equation over a specified range.
+
+    Assumes the input equation string is already validated and sympifiable.
+    """
+    expr = sympify(equation_str)
 
     # Convert sympy expression into a function usable with numpy arrays
     f = lambdify(x, expr, modules=['numpy'])
