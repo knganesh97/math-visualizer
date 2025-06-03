@@ -1,6 +1,6 @@
 import numpy as np
 from sympy import sympify, lambdify
-from .constants import x, DEFAULT_NUM_POINTS, ERROR_EVALUATION_FAILED
+from constants import x, DEFAULT_NUM_POINTS, ERROR_EVALUATION_FAILED
 
 def compute_curve_points(equation_str: str, x_min: float, x_max: float, num_points: int = DEFAULT_NUM_POINTS) -> list[tuple[float, float]]:
     """
