@@ -7,7 +7,7 @@ from .validations import validate_equation, validate_range, validate_num_points
 app = FastAPI()
 
 
-@app.post("/plot-curve", response_model=CurvePlotResponse)
+@app.post("/api/plot-curve", response_model=CurvePlotResponse)
 def plot_curve(req: CurvePlotRequest):
     validate_equation(req.equation)
     validate_range(req.x_min, req.x_max)

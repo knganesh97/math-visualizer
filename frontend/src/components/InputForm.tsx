@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
+import { plotCurve } from '../services/api';
 
 const InputForm: React.FC = () => {
   const [equation, setEquation] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Submitted equation:', equation);
-    // TODO: Call API or pass to parent
+    try{
+      const result = await plotCurve(equation);
+      // TODO: pass the result to GraphPlot
+    } catch(error) {
+      console.error(error);
+    }
+    
   };
 
   return (
