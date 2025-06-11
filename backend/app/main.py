@@ -1,11 +1,19 @@
 from fastapi import FastAPI, HTTPException
 from starlette.status import HTTP_400_BAD_REQUEST
+from fastapi.middleware.cors import CORSMiddleware
 from .math_utils import compute_curve_points
 from .models import CurvePlotRequest, CurvePlotResponse, Point
 from .validations import validate_equation, validate_range, validate_num_points
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Or specify your frontend URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/api/plot-curve", response_model=CurvePlotResponse)
 def plot_curve(req: CurvePlotRequest):
