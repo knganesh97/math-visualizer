@@ -12,39 +12,31 @@ const InputForm: React.FC<InputFormProps> = ({ onPlotResult }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Submitted equation:', equation);
     setIsLoading(true);
-    
     try {
       const result = await plotCurve(equation);
       onPlotResult(result, equation);
-    } catch(error) {
-      console.error(error);
+    } catch (error) {
+      // Optionally handle error
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-6">
-      <label htmlFor="equation" className="block mb-2 font-medium">
-        Enter Equation:
-      </label>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', minWidth: 250 }}>
+      <label htmlFor="equation">Equation:</label>
       <input
         id="equation"
         type="text"
         value={equation}
         onChange={(e) => setEquation(e.target.value)}
-        className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        placeholder="e.g. sin(x), x^2, ln(x)"
+        placeholder="e.g. sin(x)"
         disabled={isLoading}
+        style={{ padding: '0.5rem', fontSize: '1rem' }}
       />
-      <button
-        type="submit"
-        className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed"
-        disabled={isLoading}
-      >
-        {isLoading ? 'Plotting...' : 'Plot Graph'}
+      <button type="submit" disabled={isLoading || !equation.trim()} style={{ padding: '0.5rem', fontSize: '1rem' }}>
+        {isLoading ? 'Plotting...' : 'Plot'}
       </button>
     </form>
   );

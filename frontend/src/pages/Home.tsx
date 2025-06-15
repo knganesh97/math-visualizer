@@ -13,10 +13,14 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6 text-center">Interactive Graph Visualizer</h1>
-      <InputForm onPlotResult={handlePlotResult} />
-      <GraphPlot data={plotData} equation={equation} />
+    <div style={{ minHeight: '100vh', padding: '2rem' }}>
+      <h1 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '2rem', textAlign: 'center' }}>
+        Simple Math Visualizer
+      </h1>
+      <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center', alignItems: 'flex-start' }}>
+        <InputForm onPlotResult={handlePlotResult} />
+        <GraphPlot data={plotData} equation={equation} />
+      </div>
     </div>
   );
 };
